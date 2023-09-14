@@ -1,0 +1,75 @@
+plugins {
+	id 'application'
+	id 'java'
+	id 'org.springframework.boot' version '2.7.15'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'su.svn'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+application {
+	mainClass = 'su.svn.Main'
+	applicationDefaultJvmArgs = [
+			'--add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED',
+			'--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED',
+			'--add-opens=java.base/sun.nio.ch=ALL-UNNAMED',
+			'--add-opens=java.management/com.sun.jmx.mbeanserver=ALL-UNNAMED',
+			'--add-opens=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED',
+			'--add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED',
+			'--add-opens=java.base/java.io=ALL-UNNAMED',
+			'--add-opens=java.base/java.nio=ALL-UNNAMED',
+			'--add-opens=java.base/java.util=ALL-UNNAMED',
+			'--add-opens=java.base/java.util.concurrent=ALL-UNNAMED',
+			'--add-opens=java.base/java.util.concurrent.locks=ALL-UNNAMED',
+			'--add-opens=java.base/java.lang=ALL-UNNAMED',
+			'-DIGNITE_JETTY_PORT=8081'
+	]
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.data:spring-data-commons:2.7.15'
+	implementation 'org.springframework:spring-tx:5.3.29'
+
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+	implementation 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+	implementation 'javax.cache:cache-api:1.1.1'
+	implementation 'javax.servlet:javax.servlet-api:4.0.1'
+
+	implementation 'org.apache.ignite:ignite-core:2.15.0'
+	implementation 'org.apache.ignite:ignite-rest-http:2.15.0'
+	implementation 'org.apache.ignite:ignite-spring-boot-autoconfigure-ext:1.0.0'
+	implementation 'org.apache.ignite:ignite-spring-cache-ext:1.0.0'
+	implementation 'org.apache.ignite:ignite-spring-data-ext:2.0.0'
+	implementation 'org.apache.ignite:ignite-spring:2.15.0'
+	implementation 'org.apache.ignite:ignite-indexing:2.14.0'
+	implementation 'com.h2database:h2:1.4.197'
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
